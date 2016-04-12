@@ -5,6 +5,7 @@ Script that allows scaling of images
 import os
 from PIL import Image
 import re
+import shutil
 
 def scale_down(imageFile, scalePercent=50):
     """
@@ -24,10 +25,14 @@ def scale_down(imageFile, scalePercent=50):
     new_file_path = fileName + "_" + str(new_width) + "x" + str(new_height) + ext
     new_img.save(new_file_path)
     print "Created " + new_file_path
+    shutil.move(new_file_path, new_folder)
 
 
-
-
+#  create a new folder to store all resized images
+curDir = os.getcwd()
+new_folder = curDir.split('\\')[-1] + '_new'
+if not os.path.exists(new_folder):
+    os.makedirs(new_folder)
 
 for file in os.listdir('.'):
     if re.match('.*\.(jpg|png)', file):
