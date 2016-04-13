@@ -1,7 +1,3 @@
-"""
-Script that allows scaling of images
-"""
-
 import os
 from PIL import Image
 import re
@@ -9,8 +5,7 @@ import shutil
 
 def scale_down(imageFile, scalePercent=50):
     """
-    Scale image down by 50% percentage. Will create a new 
-    file with the same name plus '_small' in the same dir.
+    Scale image down by 50% percentage.
     """
     img = Image.open(imageFile)
     width, height = img.size
@@ -20,11 +15,11 @@ def scale_down(imageFile, scalePercent=50):
     new_height = height * scalePercent / 100
 
 
-    new_img = img.resize((new_width, new_height), Image.ANTIALIAS)
+    new_img = img.resize((int(new_width), int(new_height)), Image.ANTIALIAS)
     fileName, ext = os.path.splitext(imageFile)
     new_file_path = fileName + "_" + str(new_width) + "x" + str(new_height) + ext
     new_img.save(new_file_path)
-    print "Created " + new_file_path
+    print ("Created " + new_file_path)
     shutil.move(new_file_path, new_folder)
 
 
