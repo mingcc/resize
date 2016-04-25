@@ -2,8 +2,17 @@ import os
 from PIL import Image
 import re
 import shutil
+import argparse
 
-def scale_down(imageFile, scalePercent=50):
+parser = argparse.ArgumentParser(description='Scaling down images')
+parser.add_argument('-p', '--percentage', type=int, dest='percentage',
+                   help='scale down image by the given percentage, by default is 50%')
+args = parser.parse_args()
+
+
+
+
+def scale_down(imageFile, scalePercent):
     """
     Scale image down by 50% percentage.
     """
@@ -31,8 +40,9 @@ if not os.path.exists(new_folder):
 
 for file in os.listdir('.'):
     if re.match('.*\.(jpg|png)', file):
-        scale_down(file)
-
+        if not args.percentage:
+            scale_down(file, 50)
+        scale_down(file, args.percentage)
 
 
 
