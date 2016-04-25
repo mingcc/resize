@@ -40,9 +40,10 @@ if not os.path.exists(new_folder):
 
 for file in os.listdir('.'):
     if re.match('.*\.(jpg|png)', file):
-        if not args.percentage:
+        if args.percentage:
+            scale_down(file, args.percentage)
+        else:
             scale_down(file, 50)
-        scale_down(file, args.percentage)
 
 
 
